@@ -10,10 +10,10 @@
 </xsl:template>
 
 <xsl:template match="xhtml:tr">
-   <xsl:value-of select="concat($DQ,xhtml:td[1],$DQ,',',
-                                $DQ,xhtml:td[2],$DQ,',',
-                                $DQ,xhtml:td[3],$DQ,',',
-                                $DQ,xhtml:td[4],$DQ,$NL)"/>
+   <xsl:value-of select="concat($DQ,normalize-space(xhtml:td[1]),$DQ,',',
+                                $DQ,normalize-space(xhtml:td[2]),$DQ,',',
+                                $DQ,normalize-space(xhtml:td[3]),$DQ,',',
+                                $DQ,normalize-space(xhtml:td[4]),$DQ,$NL)"/>
 </xsl:template>
 
 <xsl:template match="@*|node()">

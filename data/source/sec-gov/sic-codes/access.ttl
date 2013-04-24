@@ -1,0 +1,24 @@
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix dcat:       <http://www.w3.org/ns/dcat#> .
+@prefix void:       <http://rdfs.org/ns/void#> .
+@prefix prov:       <http://www.w3.org/ns/prov#> .
+@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> .
+@prefix :           <http://lofd.tw.rpi.edu/id/> .
+
+<http://lofd.tw.rpi.edu/source/sec-gov/dataset/sic-codes>
+   a void:Dataset, dcat:Dataset;
+   conversion:source_identifier  "sec-gov";
+   conversion:dataset_identifier "sic-codes";
+   prov:wasDerivedFrom :download_1c27a93c-fd26-4b80-93cd-f225bee1ed8d;
+.
+
+:download_1c27a93c-fd26-4b80-93cd-f225bee1ed8d
+   a dcat:Distribution;
+   dcat:downloadURL <http://www.sec.gov/info/edgar/siccodes.htm>;
+.
+
+<dataset/1c27a93c-fd26-4b80-93cd-f225bee1ed8d>
+   a dcat:Dataset;
+   dcat:distribution :download_1c27a93c-fd26-4b80-93cd-f225bee1ed8d;
+.

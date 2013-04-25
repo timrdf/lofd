@@ -1,0 +1,24 @@
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix conversion: <http://purl.org/twc/vocab/conversion/> .
+@prefix dcat:       <http://www.w3.org/ns/dcat#> .
+@prefix void:       <http://rdfs.org/ns/void#> .
+@prefix prov:       <http://www.w3.org/ns/prov#> .
+@prefix datafaqs:   <http://purl.org/twc/vocab/datafaqs#> .
+@prefix :           <http://lofd.tw.rpi.edu/id/> .
+
+<http://lofd.tw.rpi.edu/source/datahub-io/dataset/corpwatch>
+   a void:Dataset, dcat:Dataset;
+   conversion:source_identifier  "datahub-io";
+   conversion:dataset_identifier "corpwatch";
+   prov:wasDerivedFrom :download_2fdab428-2aef-4d54-a8fe-b4e16b0cfc55;
+.
+
+:download_2fdab428-2aef-4d54-a8fe-b4e16b0cfc55
+   a dcat:Distribution;
+   dcat:downloadURL <http://api.corpwatch.org/documentation/db_dump/corpwatch_api_tables_csv.tar.gz>;
+.
+
+<dataset/2fdab428-2aef-4d54-a8fe-b4e16b0cfc55>
+   a dcat:Dataset;
+   dcat:distribution :download_2fdab428-2aef-4d54-a8fe-b4e16b0cfc55;
+.

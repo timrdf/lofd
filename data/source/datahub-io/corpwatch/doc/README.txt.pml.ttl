@@ -1,0 +1,140 @@
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:    <http://purl.org/dc/terms/> .
+@prefix pmlp:       <http://inference-web.org/2.0/pml-provenance.owl#> .
+@prefix pmlj:       <http://inference-web.org/2.0/pml-justification.owl#> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix sioc:       <http://rdfs.org/sioc/ns#> .
+@prefix oboro:      <http://obofoundry.org/ro/ro.owl#> .
+@prefix oprov:      <http://openprovenance.org/ontology#> .
+@prefix hartigprov: <http://purl.org/net/provenance/ns#> .
+@prefix irw:        <http://www.ontologydesignpatterns.org/ont/web/irw.owl#> .
+@prefix nfo:        <http://www.semanticdesktop.org/ontologies/nfo/#> .
+@prefix conv:       <http://purl.org/twc/vocab/conversion/> .
+@prefix httphead:   <http://inference-web.org/registry/MPR/HTTP_1_1_HEAD.owl#> .
+@prefix httpget:    <http://inference-web.org/registry/MPR/HTTP_1_1_GET.owl#> .
+@prefix httppost:   <http://inference-web.org/registry/MPR/HTTP_1_1_POST.owl#> .
+@prefix prov:       <http://www.w3.org/ns/prov#> .
+
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix sioc:    <http://rdfs.org/sioc/ns#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+
+
+<http://api.corpwatch.org/documentation/db_dump/README.txt>
+   a pmlp:Source, prov:Entity;
+.
+
+<http://api.corpwatch.org/documentation/db_dump/README.txt>
+   a pmlp:Source, prov:Entity;
+   pmlp:hasModificationDateTime "2010-12-28T02:35:59"^^xsd:dateTime;
+   dcterms:modified             "2010-12-28T02:35:59"^^xsd:dateTime;
+.
+
+<README.txt>
+   a nfo:FileDataObject, prov:Entity, pmlp:Information;
+   prov:wasQuotedFrom      <http://api.corpwatch.org/documentation/db_dump/README.txt>;
+   prov:qualifiedQuotation <quotation_99adb23b-c683-4e0c-9e60-1829dfbdd00a>;
+   pmlp:hasReferenceSourceUsage <sourceUsage99adb23b-c683-4e0c-9e60-1829dfbdd00a_content>;
+.
+<README.txt>
+   a nfo:FileDataObject;
+   nfo:fileName "README.txt";
+   nfo:hasHash <md5_60b2fd105932f475465696f73466d08e_time_1366893289>;
+.
+<md5_60b2fd105932f475465696f73466d08e_time_1366893289>
+   a nfo:FileHash; 
+   dcterms:date      "2013-04-25T12:34:49+00:00"^^xsd:dateTime;
+   nfo:hashAlgorithm "md5";
+   nfo:hashValue     "60b2fd105932f475465696f73466d08e";
+.
+
+<nodeSet99adb23b-c683-4e0c-9e60-1829dfbdd00a_content>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <README.txt>;
+   pmlj:isConsequentOf <inferenceStep99adb23b-c683-4e0c-9e60-1829dfbdd00a_content>;
+.
+<inferenceStep99adb23b-c683-4e0c-9e60-1829dfbdd00a_content>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage99adb23b-c683-4e0c-9e60-1829dfbdd00a_content>;
+   pmlj:hasInferenceEngine conv:curl_md5_95007d88b1609443f3a70e09a419ab00;
+   pmlj:hasInferenceRule   httpget:HTTP_1_1_GET;
+   oboro:has_agent          [ a foaf:OnlineAccount; foaf:accountName "lebot" ];
+   hartigprov:involvedActor [ a foaf:OnlineAccount; foaf:accountName "lebot" ];
+.
+
+<quotation_99adb23b-c683-4e0c-9e60-1829dfbdd00a>
+   a prov:Quotation;
+   prov:entity <http://api.corpwatch.org/documentation/db_dump/README.txt>;
+   prov:atTime "2013-04-25T12:34:48+00:00"^^xsd:dateTime;
+.
+
+<sourceUsage99adb23b-c683-4e0c-9e60-1829dfbdd00a_content>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://api.corpwatch.org/documentation/db_dump/README.txt>;
+   pmlp:hasUsageDateTime "2013-04-25T12:34:48+00:00"^^xsd:dateTime;
+.
+
+<wasControlledBy99adb23b-c683-4e0c-9e60-1829dfbdd00a_content>
+   a oprov:WasControlledBy;
+   oprov:cause  [ a foaf:OnlineAccount; foaf:accountName "lebot" ];
+   oprov:effect <inferenceStep99adb23b-c683-4e0c-9e60-1829dfbdd00a_content>;
+   oprov:endTime "2013-04-25T12:34:48+00:00"^^xsd:dateTime;
+.
+ 
+<info99adb23b-c683-4e0c-9e60-1829dfbdd00a_url_header>
+   a pmlp:Information, conv:HTTPHeader;
+   pmlp:hasRawString """HTTP/1.1 200 OK
+Server: nginx/1.2.7
+Date: Thu, 25 Apr 2013 12:34:47 GMT
+Content-Type: text/plain
+Content-Length: 9217
+Connection: keep-alive
+Last-Modified: Tue, 28 Dec 2010 02:35:59 GMT
+ETag: "f38964-2401-4986f501221c0"
+Accept-Ranges: bytes
+""";
+   pmlp:hasReferenceSourceUsage <sourceUsage99adb23b-c683-4e0c-9e60-1829dfbdd00a_url_header>;
+.
+ 
+<nodeSet99adb23b-c683-4e0c-9e60-1829dfbdd00a_url_header>
+   a pmlj:NodeSet;
+   pmlj:hasConclusion <info99adb23b-c683-4e0c-9e60-1829dfbdd00a_url_header>;
+   pmlj:isConsequentOf <inferenceStep99adb23b-c683-4e0c-9e60-1829dfbdd00a_url_header>;
+.
+<inferenceStep99adb23b-c683-4e0c-9e60-1829dfbdd00a_url_header>
+   a pmlj:InferenceStep;
+   pmlj:hasIndex 0;
+   pmlj:hasAntecedentList ();
+   pmlj:hasSourceUsage     <sourceUsage99adb23b-c683-4e0c-9e60-1829dfbdd00a_url_header>;
+   pmlj:hasInferenceEngine conv:curl_md5_95007d88b1609443f3a70e09a419ab00;
+   pmlj:hasInferenceRule   httphead:HTTP_1_1_HEAD;
+   oboro:has_agent          [ a foaf:OnlineAccount; foaf:accountName "lebot" ];
+   hartigprov:involvedActor [ a foaf:OnlineAccount; foaf:accountName "lebot" ];
+.
+
+<sourceUsage99adb23b-c683-4e0c-9e60-1829dfbdd00a_url_header>
+   a pmlp:SourceUsage;
+   pmlp:hasSource        <http://api.corpwatch.org/documentation/db_dump/README.txt>;
+   pmlp:hasUsageDateTime "2013-04-25T12:34:48+00:00"^^xsd:dateTime;
+.
+<wasControlledBy99adb23b-c683-4e0c-9e60-1829dfbdd00a_url_header>
+   a oprov:WasControlledBy;
+   oprov:cause  [ a foaf:OnlineAccount; foaf:accountName "lebot" ];
+   oprov:effect <nodeSet99adb23b-c683-4e0c-9e60-1829dfbdd00a_url_header>;
+   oprov:endTime "2013-04-25T12:34:48+00:00"^^xsd:dateTime;
+.
+
+
+conv:curl_md5_95007d88b1609443f3a70e09a419ab00
+   a prov:Agent, pmlp:InferenceEngine, conv:Curl;
+   dcterms:identifier "md5_95007d88b1609443f3a70e09a419ab00";
+   dcterms:description """curl 7.19.7 (x86_64-pc-linux-gnu) libcurl/7.19.7 OpenSSL/0.9.8k zlib/1.2.3.3 libidn/1.15
+Protocols: tftp ftp telnet dict ldap ldaps http file https ftps 
+Features: GSS-Negotiate IDN IPv6 Largefile NTLM SSL libz """;
+.
+
+conv:Curl rdfs:subClassOf pmlp:InferenceEngine .

@@ -70,45 +70,55 @@
       #conversion:delimits_cell "|";   # pipe
       #conversion:delimits_cell ",";   # comma
 
-      #conversion:interpret [
-      #   conversion:symbol        "";
-      #   conversion:interpretation conversion:null; 
-      #];
-      #conversion:enhance [
-      #   conversion:domain_template "thing_[r]";
-      #   conversion:domain_name     "Thing";
-      #];
-      #conversion:enhance [
-      #   conversion:class_name "Thing";
-      #   conversion:subclass_of <http://purl.org/...>;
-      #];
+      conversion:interpret [
+         conversion:symbol        "NULL";
+         conversion:interpretation conversion:null; 
+      ];
+      conversion:enhance [
+         conversion:domain_template "[/sd]filer/[#1]";
+         conversion:domain_name     "Filer";
+      ];
+      conversion:enhance [
+         conversion:class_name "Filer";
+         conversion:subclass_of foaf:Organization;
+      ];
       conversion:enhance [
          ov:csvCol          1;
          ov:csvHeader       "filer_id";
          #conversion:label   "filer_id";
+         conversion:equivalent_property dcterms:identifier;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          2;
          ov:csvHeader       "filing_id";
-         #conversion:label   "filing_id";
+         conversion:label   "filed";
+         conversion:inverse_of prov:wasAttributedTo;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range_template "[/sd]filing/[.]";
+         conversion:range   rdfs:Resource;
+         conversion:range_name "Filing";
       ];
       conversion:enhance [
          ov:csvCol          3;
          ov:csvHeader       "cik";
+         conversion:bundled_by [ ov:csvCol 29 ];
          #conversion:label   "cik";
+         conversion:equivalent_property prov:alternateOf;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range_template "[/]id/sec-gov/company/cik/[!]";
+         conversion:range   rdfs:Resource;
       ];
       conversion:enhance [
          ov:csvCol          4;
          ov:csvHeader       "irs_number";
+         conversion:bundled_by [ ov:csvCol 29 ];
          #conversion:label   "irs_number";
+         conversion:equivalent_property prov:alternateOf;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range_template "[/]id/irs-gov/company/ein/[!]";
+         conversion:range   rdfs:Resource;
       ];
       conversion:enhance [
          ov:csvCol          5;
@@ -282,15 +292,17 @@
          ov:csvCol          29;
          ov:csvHeader       "cw_id";
          #conversion:label   "cw_id";
+         conversion:equivalent_property prov:specializationOf;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range_template "[/sd]company/[!]";
+         conversion:range   rdfs:Resource;
       ];
       conversion:enhance [
          ov:csvCol          30;
          ov:csvHeader       "year";
          #conversion:label   "year";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:gYear;
       ];
       conversion:enhance [
          ov:csvCol          31;
@@ -311,14 +323,14 @@
          ov:csvHeader       "bad_cik";
          #conversion:label   "bad_cik";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:boolean;
       ];
       conversion:enhance [
          ov:csvCol          34;
          ov:csvHeader       "sec_21";
          #conversion:label   "sec_21";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:boolean;
       ];
       #conversion:enhance [            
       #   ov:csvRow 3,4,5;             

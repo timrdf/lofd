@@ -70,14 +70,21 @@
       #conversion:delimits_cell "|";   # pipe
       #conversion:delimits_cell ",";   # comma
 
-      #conversion:interpret [
-      #   conversion:symbol        "";
-      #   conversion:interpretation conversion:null; 
-      #];
-      #conversion:enhance [
-      #   conversion:domain_template "thing_[r]";
-      #   conversion:domain_name     "Thing";
-      #];
+      conversion:interpret [
+         conversion:symbol        "NULL";
+         conversion:interpretation conversion:null; 
+      ];
+      conversion:enhance [
+         ov:csvCol          15, 16, 17;
+         conversion:interpret [
+            conversion:symbol        "0";
+            conversion:interpretation conversion:null; 
+         ];
+      ];
+      conversion:enhance [
+         conversion:domain_template "[/sdv]filing/[#1]";
+         conversion:domain_name     "Filing";
+      ];
       #conversion:enhance [
       #   conversion:class_name "Thing";
       #   conversion:subclass_of <http://purl.org/...>;
@@ -86,106 +93,122 @@
          ov:csvCol          1;
          ov:csvHeader       "filing_id";
          #conversion:label   "filing_id";
+         conversion:equivalent_property dcterms:identifier;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          2;
          ov:csvHeader       "filing_date";
          #conversion:label   "filing_date";
+         conversion:equivalent_property prov:generatedAtTime;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:pattern "YYYY-MM-dd";
+         conversion:range   xsd:date;
       ];
       conversion:enhance [
          ov:csvCol          3;
          ov:csvHeader       "type";
          #conversion:label   "type";
-         conversion:comment "";
+         conversion:comment "we are only interested in 10-K, and 10-K/A, but there are tons of other kinds...";
          conversion:range   todo:Literal;
       ];
       conversion:enhance [
          ov:csvCol          4;
          ov:csvHeader       "company_name";
+         conversion:bundled_by [ ov:csvCol 6 ];
          #conversion:label   "company_name";
+         conversion:equivalent_property dcterms:title;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          5;
          ov:csvHeader       "filename";
          #conversion:label   "filename";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         a conversion:URISafe;
+         conversion:range_template "file://[.]";
+         conversion:range   rdfs:Resource;
       ];
       conversion:enhance [
          ov:csvCol          6;
          ov:csvHeader       "cik";
          #conversion:label   "cik";
+         conversion:equivalent_property prov:wasAttributedTo;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Resource;
+         conversion:range_template "[/]id/sec-gov/company/cik/[!]";
       ];
       conversion:enhance [
          ov:csvCol          7;
          ov:csvHeader       "has_sec21";
          #conversion:label   "has_sec21";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:boolean;
       ];
       conversion:enhance [
          ov:csvCol          8;
          ov:csvHeader       "year";
          #conversion:label   "year";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:gYear;
       ];
       conversion:enhance [
          ov:csvCol          9;
          ov:csvHeader       "quarter";
          #conversion:label   "quarter";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range_template "[/sd]quarter/[.]";
+         conversion:range   rdfs:Resource;
       ];
       conversion:enhance [
          ov:csvCol          10;
          ov:csvHeader       "has_html";
          #conversion:label   "has_html";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:boolean;
       ];
       conversion:enhance [
          ov:csvCol          11;
          ov:csvHeader       "num_tables";
          #conversion:label   "num_tables";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:integer;
       ];
       conversion:enhance [
          ov:csvCol          12;
          ov:csvHeader       "num_rows";
          #conversion:label   "num_rows";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:integer;
       ];
       conversion:enhance [
          ov:csvCol          13;
          ov:csvHeader       "tables_parsed";
          #conversion:label   "tables_parsed";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:integer;
       ];
       conversion:enhance [
          ov:csvCol          14;
          ov:csvHeader       "rows_parsed";
          #conversion:label   "rows_parsed";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:integer;
       ];
       conversion:enhance [
          ov:csvCol          15;
          ov:csvHeader       "period_of_report";
          #conversion:label   "period_of_report";
+         conversion:equivalent_property dcterms:subject;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:interpret [
+            conversion:symbol        "0";
+            conversion:interpretation conversion:null; 
+         ];
+         conversion:range_template "[/sd]report-period/[.]";
+         conversion:range   rdfs:Resource;
       ];
       conversion:enhance [
          ov:csvCol          16;
@@ -198,29 +221,32 @@
          ov:csvCol          17;
          ov:csvHeader       "date_changed";
          #conversion:label   "date_changed";
+         conversion:equivalent_property dcterms:modified;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:pattern "YYYYMMdd";
+         conversion:range   xsd:date;
       ];
       conversion:enhance [
          ov:csvCol          18;
          ov:csvHeader       "sec_21_url";
          #conversion:label   "sec_21_url";
+         conversion:equivalent_property foaf:page;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Resource;
       ];
       conversion:enhance [
          ov:csvCol          19;
          ov:csvHeader       "bad_header";
          #conversion:label   "bad_header";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:boolean;
       ];
       conversion:enhance [
          ov:csvCol          20;
          ov:csvHeader       "bad_sec21";
          #conversion:label   "bad_sec21";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:boolean;
       ];
       #conversion:enhance [            
       #   ov:csvRow 3,4,5;             

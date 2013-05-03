@@ -37,11 +37,12 @@
 @prefix :              <http://lofd.tw.rpi.edu/source/datahub-io/dataset/corpwatch/version/2013-Apr-24/params/enhancement/1/> .
 
 
-#:a_bundle
-#   a conversion:ImplicitBundle;
-#   conversion:property_name "a_property"; # Can also be a URI, e.g. dcterms:title.
-#   #conversion:type_name     "My Class";   # Can also be a URI, e.g. foaf:Person.
-#.
+:a_bundle
+   a conversion:ImplicitBundle;
+   conversion:property_name sio:has-attribute;
+   conversion:name_template "[/sd]company-relation/[#1]";
+   conversion:type_name     sio:Attribute;
+.
 
 <http://lofd.tw.rpi.edu/source/datahub-io/dataset/corpwatch/version/2013-Apr-24/conversion/enhancement/1>
    a conversion:LayerDataset, void:Dataset;
@@ -60,6 +61,7 @@
       dcterms:creator [ a foaf:OnlineAccount; foaf:accountName "lebot" ];
       dcterms:created "2013-04-25T14:37:00+00:00"^^xsd:dateTime;
 
+      dcterms:description """This table gives the parent/child relationships as parsed from the Exhibit 21 of the 10-K where possible.  In many cases the parent is a 'filing' company and the children are not.  But some Exhibit 21 filings indicated hierarchical relationships between subsidiaries that we were able to parse out. NOTE: Some groups of companies may form circular loops due to peculiarities of their filings (Same companies listed as parents and children), or because multiple CIKs refer to the same filing.""";
 
       #conversion:enhance [
       #   ov:csvRow 2;
@@ -70,14 +72,14 @@
       #conversion:delimits_cell "|";   # pipe
       #conversion:delimits_cell ",";   # comma
 
-      #conversion:interpret [
-      #   conversion:symbol        "";
-      #   conversion:interpretation conversion:null; 
-      #];
-      #conversion:enhance [
-      #   conversion:domain_template "thing_[r]";
+      conversion:interpret [
+         conversion:symbol        "NULL";
+         conversion:interpretation conversion:null; 
+      ];
+      conversion:enhance [
+         conversion:domain_template "[/sd]company/[#2]";
       #   conversion:domain_name     "Thing";
-      #];
+      ];
       #conversion:enhance [
       #   conversion:class_name "Thing";
       #   conversion:subclass_of <http://purl.org/...>;
@@ -92,20 +94,26 @@
       conversion:enhance [
          ov:csvCol          2;
          ov:csvHeader       "source_cw_id";
+         a conversion:Omitted;
          #conversion:label   "source_cw_id";
-         conversion:comment "";
+         conversion:comment "cw_id of source or 'parent' company for this relation";
          conversion:range   todo:Literal;
       ];
       conversion:enhance [
          ov:csvCol          3;
          ov:csvHeader       "target_cw_id";
          #conversion:label   "target_cw_id";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:equivalent_property dcterms:hasPart;
+         conversion:subproperty_of      org:hasSubOrganization;
+         conversion:inverse_of          org:subOrganizationOf;
+         conversion:comment "cw_id of target/subsidary company for this relation";
+         conversion:range_template "[/sd]company/[.]";
+         conversion:range   rdfs:Resource;
       ];
       conversion:enhance [
          ov:csvCol          4;
          ov:csvHeader       "relation_type";
+         a conversion:Omitted;
          #conversion:label   "relation_type";
          conversion:comment "";
          conversion:range   todo:Literal;
@@ -113,23 +121,26 @@
       conversion:enhance [
          ov:csvCol          5;
          ov:csvHeader       "relation_origin";
+         conversion:bundled_by :a_bundle;
          #conversion:label   "relation_origin";
-         conversion:comment "";
+         conversion:comment "currently 'relationships' indicating that it came from an Exhibit 21 filing";
          conversion:range   todo:Literal;
       ];
       conversion:enhance [
          ov:csvCol          6;
          ov:csvHeader       "origin_id";
+         conversion:bundled_by :a_bundle;
          #conversion:label   "origin_id";
-         conversion:comment "";
+         conversion:comment "row id in source table";
          conversion:range   todo:Literal;
       ];
       conversion:enhance [
          ov:csvCol          7;
          ov:csvHeader       "year";
+         conversion:bundled_by :a_bundle;
          #conversion:label   "year";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:gYear;
       ];
       #conversion:enhance [            
       #   ov:csvRow 3,4,5;             

@@ -74,10 +74,10 @@
       #   conversion:symbol        "";
       #   conversion:interpretation conversion:null; 
       #];
-      #conversion:enhance [
-      #   conversion:domain_template "thing_[r]";
+      conversion:enhance [
+         conversion:domain_template "[/]id/sec-gov/standard-industrial-sector/[#1]";
       #   conversion:domain_name     "Thing";
-      #];
+      ];
       #conversion:enhance [
       #   conversion:class_name "Thing";
       #   conversion:subclass_of <http://purl.org/...>;
@@ -85,30 +85,37 @@
       conversion:enhance [
          ov:csvCol          1;
          ov:csvHeader       "sic_sector";
-         #conversion:label   "sic_sector";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:label   "sic_sector_code";
+         conversion:subproperty_of dcterms:identifier;
+         conversion:comment "middle level SIC industry sectors";
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          2;
          ov:csvHeader       "sector_name";
+         conversion:bundled_by [ ov:csvCol 3 ];
          #conversion:label   "sector_name";
+         conversion:equivalent_property dcterms:title;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          3;
          ov:csvHeader       "sector_group";
          #conversion:label   "sector_group";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:equivalent_property skos:broader;
+         conversion:comment "code for highest level industry group this sector is within";
+         conversion:range_template "[/]id/sec-gov/standard-industrial-group/[.]";
+         conversion:range   rdfs:Resource;
       ];
       conversion:enhance [
          ov:csvCol          4;
          ov:csvHeader       "sector_group_name";
+         conversion:bundled_by [ ov:csvCol 3 ];
          #conversion:label   "sector_group_name";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:equivalent_property dcterms:title;
+         conversion:comment "description of highest level industry group";
+         conversion:range   rdfs:Literal;
       ];
       #conversion:enhance [            
       #   ov:csvRow 3,4,5;             

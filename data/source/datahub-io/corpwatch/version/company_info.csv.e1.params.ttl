@@ -70,14 +70,14 @@
       #conversion:delimits_cell "|";   # pipe
       #conversion:delimits_cell ",";   # comma
 
-      #conversion:interpret [
-      #   conversion:symbol        "";
-      #   conversion:interpretation conversion:null; 
-      #];
-      #conversion:enhance [
-      #   conversion:domain_template "thing_[r]";
+      conversion:interpret [
+         conversion:symbol        "NULL";
+         conversion:interpretation conversion:null; 
+      ];
+      conversion:enhance [
+         conversion:domain_template "[/sd]company/[#2]";
       #   conversion:domain_name     "Thing";
-      #];
+      ];
       #conversion:enhance [
       #   conversion:class_name "Thing";
       #   conversion:subclass_of <http://purl.org/...>;
@@ -85,6 +85,7 @@
       conversion:enhance [
          ov:csvCol          1;
          ov:csvHeader       "row_id";
+         a conversion:Omitted;
          #conversion:label   "row_id";
          conversion:comment "";
          conversion:range   todo:Literal;
@@ -109,56 +110,73 @@
          ov:csvHeader       "year";
          #conversion:label   "year";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:gYear;
       ];
       conversion:enhance [
          ov:csvCol          5;
          ov:csvHeader       "cik";
          #conversion:label   "cik";
+         conversion:equivalent_property prov:alternateOf;
          conversion:comment "SEC's Central Index Key id code for filing companies (null for most subsidiaries)";
-         conversion:range   todo:Literal;
+         conversion:range_template "[/s]sec-gov/company/cik/[!]";
+         conversion:range   foaf:Organization;
       ];
       conversion:enhance [
          ov:csvCol          6;
          ov:csvHeader       "irs_number";
          #conversion:label   "irs_number";
+         conversion:equivalent_property prov:alternateOf;
          conversion:comment "IRS EIN (tax id) for the company, if known";
-         conversion:range   todo:Literal;
+         conversion:range_template "[/s]irs-gov/company/ein/[!]";
+         conversion:range   foaf:Organization;
       ];
       conversion:enhance [
          ov:csvCol          7;
          ov:csvHeader       "best_location_id";
-         #conversion:label   "best_location_id";
+         conversion:label   "Best location";
+         conversion:equivalent_property "[/s]vocab/bestLocation";
+         conversion:subproperty_of prov:atLocation;
          conversion:comment "id of the company_locations record that 'best' describes this company";
-         conversion:range   todo:Literal;
+         conversion:range_template "[/sd]location/[!]";
+         conversion:range   prov:Location;
       ];
       conversion:enhance [
          ov:csvCol          8;
          ov:csvHeader       "sic_code";
          #conversion:label   "sic_code";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:equivalent_property dcterms:isPartOf;
+         conversion:comment "Standard Industrial Classification code for the company, if known";
+         conversion:equivalent_property dcterms:isPartOf;
+         conversion:range_template "[/]id/sec-gov/standard-industrial-classification/[.]";
+         conversion:range   rdfs:Resource;
       ];
       conversion:enhance [
          ov:csvCol          9;
          ov:csvHeader       "industry_name";
+         conversion:bundled_by [ ov:csvCol 8 ];
+         conversion:equivalent_property dcterms:title;
          #conversion:label   "industry_name";
          conversion:comment "text version of the SIC code";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          10;
          ov:csvHeader       "sic_sector";
+         conversion:bundled_by [ ov:csvCol 8 ];
          #conversion:label   "sic_sector";
+         conversion:equivalent_property skos:broader;
          conversion:comment "code for the higher-level SIC sector";
-         conversion:range   todo:Literal;
+         conversion:range_template "[/]id/sec-gov/standard-industrial-sector/[.]";
+         conversion:range   rdfs:Resource;
       ];
       conversion:enhance [
          ov:csvCol          11;
          ov:csvHeader       "sector_name";
+         conversion:bundled_by [ ov:csvCol 10 ];
          #conversion:label   "sector_name";
+         conversion:equivalent_property dcterms:title;
          conversion:comment "text version of the higher-level SIC sector";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          12;
@@ -170,37 +188,43 @@
       conversion:enhance [
          ov:csvCol          13;
          ov:csvHeader       "source_id";
-         #conversion:label   "source_id";
+         conversion:label   "source";
+         conversion:equivalent_property foaf:page;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         #conversion:range_template "[/sd][D]source/[.]";
+         conversion:range   foaf:Document;
       ];
       conversion:enhance [
          ov:csvCol          14;
          ov:csvHeader       "num_parents";
          #conversion:label   "num_parents";
          conversion:comment "number of known 'parent' companies that this company is a subsidiary of (calculated from company_relations)";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:integer;
       ];
       conversion:enhance [
          ov:csvCol          15;
          ov:csvHeader       "num_children";
          #conversion:label   "num_children";
          conversion:comment "number of known 'child' (subsidiary) companies that this company has (calculated from company_relations)";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:integer;
       ];
       conversion:enhance [
          ov:csvCol          16;
          ov:csvHeader       "top_parent_id";
          #conversion:label   "top_parent_id";
+         conversion:subproperty_of dcterms:isPartOf, org:subOrganizationOf;
          conversion:comment "calculated best guess of the cw_id at the top of the hierarchy this company is a part of";
-         conversion:range   todo:Literal;
+         conversion:range   foaf:Organization;
+         conversion:range_template "[/sd]company/[.]";
       ];
       conversion:enhance [
          ov:csvCol          17;
          ov:csvHeader       "company_name";
          #conversion:label   "company_name";
+         conversion:equivalent_property "[/sd]vocab/company_name";
+         conversion:subproperty_of dcterms:title;
          conversion:comment "our standardized name for the company";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          18;

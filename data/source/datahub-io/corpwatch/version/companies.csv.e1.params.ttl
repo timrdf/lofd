@@ -74,47 +74,52 @@
       #   conversion:symbol        "";
       #   conversion:interpretation conversion:null; 
       #];
-      #conversion:enhance [
-      #   conversion:domain_template "thing_[r]";
-      #   conversion:domain_name     "Thing";
-      #];
-      #conversion:enhance [
-      #   conversion:class_name "Thing";
-      #   conversion:subclass_of <http://purl.org/...>;
-      #];
+      conversion:enhance [
+         conversion:domain_template "[/sd]company/[#2]";
+         conversion:domain_name     "Company";
+      ];
+      conversion:enhance [
+         conversion:class_name "Company";
+         conversion:subclass_of foaf:Organization;
+      ];
       conversion:enhance [
          ov:csvCol          1;
          ov:csvHeader       "row_id";
          #conversion:label   "row_id";
+         conversion:subproperty_of dcterms:identifier;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          2;
          ov:csvHeader       "cw_id";
          #conversion:label   "cw_id";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:subproperty_of dcterms:identifier;
+         conversion:comment "id for the company within our (corpwatch) database";
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          3;
          ov:csvHeader       "cik";
          #conversion:label   "cik";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:equivalent_property prov:alternateOf;
+         conversion:comment "SEC's Central Index Key id code for filing companies (null for most subsidiaries)";
+         conversion:range   rdfs:Resource;
+         conversion:range_template "[/]id/sec-gov/company/cik/[!]";
       ];
       conversion:enhance [
          ov:csvCol          4;
          ov:csvHeader       "company_name";
-         #conversion:label   "company_name";
-         conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:label   "company_name";
+         conversion:subproperty_of dcterms:title;
+         conversion:comment "our (corpwatch) standardized name for the company";
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          5;
          ov:csvHeader       "source_type";
          #conversion:label   "source_type";
-         conversion:comment "";
+         conversion:comment "'filers' indicates a filing company, 'relations' indicates a company parsed from the Exhibit 21 relationships";
          conversion:range   todo:Literal;
       ];
       conversion:enhance [

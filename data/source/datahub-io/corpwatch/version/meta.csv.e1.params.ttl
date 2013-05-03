@@ -74,10 +74,10 @@
       #   conversion:symbol        "";
       #   conversion:interpretation conversion:null; 
       #];
-      #conversion:enhance [
-      #   conversion:domain_template "thing_[r]";
+      conversion:enhance [
+         conversion:domain_template "[/sd]version/[v]";
       #   conversion:domain_name     "Thing";
-      #];
+      ];
       #conversion:enhance [
       #   conversion:class_name "Thing";
       #   conversion:subclass_of <http://purl.org/...>;
@@ -85,16 +85,23 @@
       conversion:enhance [
          ov:csvCol          1;
          ov:csvHeader       "meta";
+         a conversion:Omitted;
          #conversion:label   "meta";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   todo:Resource;
       ];
       conversion:enhance [
          ov:csvCol          2;
          ov:csvHeader       "value";
+         a conversion:Omitted;
          #conversion:label   "value";
          conversion:comment "";
          conversion:range   todo:Literal;
+      ];
+      conversion:enhance [
+         a conversion:SubjectAnnotation;
+         conversion:predicate  "[#1]";
+         conversion:object     "[#2]";
       ];
       #conversion:enhance [            
       #   ov:csvRow 3,4,5;             

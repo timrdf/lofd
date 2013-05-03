@@ -30,6 +30,7 @@
 @prefix dcterms:       <http://purl.org/dc/terms/> .
 @prefix void:          <http://rdfs.org/ns/void#> .
 @prefix scovo:         <http://purl.org/NET/scovo#> .
+@prefix pml:           <http://provenanceweb.org/ns/pml#> .
 @prefix sioc:          <http://rdfs.org/sioc/ns#> .
 @prefix foaf:          <http://xmlns.com/foaf/0.1/> .
 @prefix ov:            <http://open.vocab.org/terms/> .
@@ -37,10 +38,11 @@
 @prefix :              <http://lofd.tw.rpi.edu/source/datahub-io/dataset/corpwatch/version/2013-Apr-24/params/enhancement/1/> .
 
 
-#:a_bundle
+#:name_bundle
 #   a conversion:ImplicitBundle;
-#   conversion:property_name "a_property"; # Can also be a URI, e.g. dcterms:title.
-#   #conversion:type_name     "My Class";   # Can also be a URI, e.g. foaf:Person.
+#   conversion:property_name prov:generalizationOf;
+#   conversion:name_template "[/sd]company/[#2]/[r]";   # Can also be a URI, e.g. foaf:Person.
+#   conversion:type_name     "[/s]vocab/Company";   # Can also be a URI, e.g. foaf:Person.
 #.
 
 <http://lofd.tw.rpi.edu/source/datahub-io/dataset/corpwatch/version/2013-Apr-24/conversion/enhancement/1>
@@ -74,10 +76,10 @@
       #   conversion:symbol        "";
       #   conversion:interpretation conversion:null; 
       #];
-      #conversion:enhance [
-      #   conversion:domain_template "thing_[r]";
+      conversion:enhance [
+         conversion:domain_template "[/sd]company/[#2]/[#1]";
       #   conversion:domain_name     "Thing";
-      #];
+      ];
       #conversion:enhance [
       #   conversion:class_name "Thing";
       #   conversion:subclass_of <http://purl.org/...>;
@@ -85,6 +87,7 @@
       conversion:enhance [
          ov:csvCol          1;
          ov:csvHeader       "name_id";
+         a conversion:Omitted;
          #conversion:label   "name_id";
          conversion:comment "";
          conversion:range   todo:Literal;
@@ -93,22 +96,28 @@
          ov:csvCol          2;
          ov:csvHeader       "cw_id";
          #conversion:label   "cw_id";
+         conversion:equivalent_property prov:specializationOf;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Resource;
+         conversion:range_template "[/sd]company/[#2]";
       ];
       conversion:enhance [
          ov:csvCol          3;
          ov:csvHeader       "company_name";
          #conversion:label   "company_name";
+         conversion:equivalent_property dcterms:title;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Literal;
       ];
       conversion:enhance [
          ov:csvCol          4;
          ov:csvHeader       "date";
+         conversion:bundled_by :name_bundle;
          #conversion:label   "date";
+         conversion:equivalent_property pml:validAtTime;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:pattern "YYYY-MM-dd";
+         conversion:range   xsd:date;
       ];
       conversion:enhance [
          ov:csvCol          5;
@@ -127,37 +136,42 @@
       conversion:enhance [
          ov:csvCol          7;
          ov:csvHeader       "country_code";
+         conversion:bundled_by [ ov:csvCol 8 ];
          #conversion:label   "country_code";
+         conversion:equivalent_property geonames:parentFeature;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Resource;
+         conversion:range_template "[/sd]subdivision/[_#7_]";
       ];
       conversion:enhance [
          ov:csvCol          8;
          ov:csvHeader       "subdiv_code";
          #conversion:label   "subdiv_code";
+         conversion:equivalent_property prov:atLocation;
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   rdfs:Resource;
+         conversion:range_template "[/sd]subdivision/[_#7_]/[_._]";
       ];
       conversion:enhance [
          ov:csvCol          9;
          ov:csvHeader       "min_year";
          #conversion:label   "min_year";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:gYear;
       ];
       conversion:enhance [
          ov:csvCol          10;
          ov:csvHeader       "max_year";
          #conversion:label   "max_year";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:gYear;
       ];
       conversion:enhance [
          ov:csvCol          11;
          ov:csvHeader       "most_recent";
          #conversion:label   "most_recent";
          conversion:comment "";
-         conversion:range   todo:Literal;
+         conversion:range   xsd:boolean;
       ];
       #conversion:enhance [            
       #   ov:csvRow 3,4,5;             

@@ -72,10 +72,10 @@
       #conversion:delimits_cell "|";   # pipe
       #conversion:delimits_cell ",";   # comma
 
-      #conversion:interpret [
-      #   conversion:symbol        "";
-      #   conversion:interpretation conversion:null; 
-      #];
+      conversion:interpret [
+         conversion:symbol        "NULL";
+         conversion:interpretation conversion:null; 
+      ];
       conversion:enhance [
          conversion:domain_template "[/sd]company/[#2]/[#1]";
       #   conversion:domain_name     "Thing";

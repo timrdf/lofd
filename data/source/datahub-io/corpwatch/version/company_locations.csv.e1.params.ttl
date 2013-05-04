@@ -109,7 +109,7 @@
          #conversion:label   "date";
          conversion:equivalent_property pml:validAtTime;
          conversion:comment "";
-         conversion:pattern "YYYY-MM-dd";
+         conversion:pattern "yyyy-MM-dd";
          conversion:range   xsd:date;
       ];
       conversion:enhance [

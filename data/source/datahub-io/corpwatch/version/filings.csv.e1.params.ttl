@@ -103,7 +103,7 @@
          #conversion:label   "filing_date";
          conversion:equivalent_property prov:generatedAtTime;
          conversion:comment "";
-         conversion:pattern "YYYY-MM-dd";
+         conversion:pattern "yyyy-MM-dd";
          conversion:range   xsd:date;
       ];
       conversion:enhance [
@@ -223,7 +223,7 @@
          #conversion:label   "date_changed";
          conversion:equivalent_property dcterms:modified;
          conversion:comment "";
-         conversion:pattern "YYYYMMdd";
+         conversion:pattern "yyyyMMdd";
          conversion:range   xsd:date;
       ];
       conversion:enhance [
